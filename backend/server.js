@@ -16,7 +16,7 @@ const getProductsFromFile = () => {
     }
 
     if (!fs.existsSync(productsFilePath)) {
-        fs.writeFileSync(productsFilePath, JSON.stricadangify([]));
+        fs.writeFileSync(productsFilePath, JSON.stringify([]));
     }
 
     const fileData = fs.readFileSync(productsFilePath, "utf-8");
