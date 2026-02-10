@@ -2,16 +2,20 @@ services:
     redis:
         image: redis:latest
         container_name: redis
+        restart: unless-stopped
         ports:
             - "6379:6379"
         volumes:
             - redis-data:/data
         networks:
             - backend
+        mem_limit: 512m
+        cpus: "0.5"
 
     server:
         build: ./backend
         container_name: server
+        restart: unless-stopped
         ports:
             - "5000:5000"
         volumes:
@@ -22,16 +26,21 @@ services:
         networks:
             - backend
             - frontend
+        mem_limit: 1g
+        cpus: "1.0"
 
     client:
         build: ./frontend
         container_name: client
+        restart: unless-stopped
         ports:
             - "3000:3000"
         stdin_open: true
         tty: true
         networks:
             - frontend
+        mem_limit: 512m
+        cpus: "0.5"
 
 volumes:
     server-data:
