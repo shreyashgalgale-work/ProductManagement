@@ -62,7 +62,7 @@ jobs:
     - name: Deploy to EC2
       run: |
         ssh -i ~/.ssh/id_rsa ${{ env.EC2_INSTANCE_USER }}@${{ env.EC2_INSTANCE_IP }} << 'EOF'
-        set -ecd
+        set -e
         
         # Navigate to project directory
         cd /home/${{ env.EC2_INSTANCE_USER }}/ProductManagement
