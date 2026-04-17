@@ -14,6 +14,5 @@ EXPOSE 3000
 
 ENV REACT_APP_API_URL=http://server:5000
 
-RUN npm run build
 
 CMD ["npm", "start"]
