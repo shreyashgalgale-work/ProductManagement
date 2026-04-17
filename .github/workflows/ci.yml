@@ -71,7 +71,7 @@ jobs:
         docker-compose down || true
         
         # Start new containers
-        docker-compose up -d
+        docker-compose up -d --build
         
         # Verify deployment
         sleep 15
@@ -79,7 +79,7 @@ jobs:
         
         # Health checks
         echo "Checking Backend Health..."
-        curl -f http://localhost:5000/health || (echo "Backend health check failed" && exit 1)
+        curl -f http://localhost:5000/ || (echo "Backend health check failed" && exit 1)
         
         echo "Checking Frontend..."
         curl -f http://localhost:80 || (echo "Frontend health check failed" && exit 1)
