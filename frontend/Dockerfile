@@ -13,5 +13,8 @@ COPY . .
 EXPOSE 3000
 
 ENV NODE_OPTIONS=--openssl-legacy-provider
+ENV REACT_APP_API_URL=http://server:5000
+
+RUN npm run build
 
 CMD ["npm", "start"]

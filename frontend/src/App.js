@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header/Header';
 import NewProduct from './components/Products/NewProduct';
 import ProductList from './components/Products/ProductList';
+import { fetchProducts, addProduct } from './config/api';
 import './App.css';
 
 function App() {
@@ -10,43 +11,31 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const getProducts = async () => {
       setIsLoading(true);
-      const response = await fetch('http://localhost:5000/products');
-
-      const responseData = await response.json();
-
-      setLoadedProducts(responseData.products);
+      try {
+        const responseData = await fetchProducts();
+        setLoadedProducts(responseData.products);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+        alert('Failed to load products');
+      }
       setIsLoading(false);
     };
 
-    fetchProducts();
+    getProducts();
   }, []);
 
   const addProductHandler = async (productName, productPrice) => {
     try {
-      const newProduct = {
-        title: productName,
-        price: +productPrice // "+" to convert string to number
-      };
-      let hasError = false;
-      const response = await fetch('http://localhost:5000/product', {
-        method: 'POST',
-        body: JSON.stringify(newProduct),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      const { response, newProduct } = await addProduct(productName, productPrice);
 
       if (!response.ok) {
-        hasError = true;
+        const responseData = await response.json();
+        throw new Error(responseData.message);
       }
 
       const responseData = await response.json();
-
-      if (hasError) {
-        throw new Error(responseData.message);
-      }
 
       setLoadedProducts(prevProducts => {
         return prevProducts.concat({
