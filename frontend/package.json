@@ -3,13 +3,14 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "cross-env": "^10.1.0",
         "react": "^16.11.0",
         "react-dom": "^16.11.0",
         "react-scripts": "3.2.0"
     },
     "scripts": {
-        "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-        "build": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+        "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+        "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
