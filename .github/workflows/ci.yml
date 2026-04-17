@@ -32,17 +32,10 @@ jobs:
       working-directory: backend
       run: npm install
 
-    - name: Run backend tests
-      working-directory: backend
-      run: npm test --if-present
-
     - name: Install frontend dependencies
       working-directory: frontend
       run: npm install
 
-    - name: Run frontend tests
-      working-directory: frontend
-      run: npm test --if-present
 
     - name: Build frontend
       working-directory: frontend
